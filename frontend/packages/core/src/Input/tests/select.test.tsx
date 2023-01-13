@@ -39,7 +39,7 @@ describe("Select", () => {
 
     it("onChange returns comma separated values", () => {
       component.find("#foobar-select").simulate("change", { target: { value: ["foo", "bar"] } });
-      expect("onChange").toHaveBeenCalledWith("foo,bar");
+      expect(onChange).toHaveBeenCalledWith("foo,bar");
     });
 
     it("happy path", () => {
