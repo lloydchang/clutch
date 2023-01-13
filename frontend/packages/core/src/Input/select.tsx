@@ -248,7 +248,7 @@ export const Select = ({
     const findIndex = val => flatOptions.findIndex(opt => opt.value === val || opt.label === val);
     setSelectedIdxs(multiple ? value.map(val => findIndex(val)) : [findIndex(value)]);
 
-    onChange && onChange(selectedIdxs.join(","));
+    onChange && onChange((selectedValues() ?? []).join(","));
   };
 
   if (flatOptions.length === 0) {
