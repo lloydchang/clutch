@@ -234,10 +234,10 @@ export const Select = ({
     selectedIdxs.map(idx => flatOptions[idx].value || flatOptions[idx].label);
 
   React.useEffect(() => {
-    if (flatOptions.length !== 0) {
+    if (selectedIdxs.length !== 0 && flatOptions.length !== 0) {
       onChange && onChange((selectedValues() ?? []).join(","));
     }
-  }, []);
+  }, [selectedIdxs]);
 
   const updateSelectedOption = event => {
     const { value } = event.target;
@@ -247,8 +247,6 @@ export const Select = ({
     }
     const findIndex = val => flatOptions.findIndex(opt => opt.value === val || opt.label === val);
     setSelectedIdxs(multiple ? value.map(val => findIndex(val)) : [findIndex(value)]);
-
-    onChange && onChange((selectedValues() ?? []).join(","));
   };
 
   if (flatOptions.length === 0) {
