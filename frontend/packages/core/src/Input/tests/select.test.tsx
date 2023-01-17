@@ -1,9 +1,10 @@
 import * as React from "react";
-import { screen, render } from "@testing-library/react";
-import { Select } from "..";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom";
+
+import { Select } from "..";
 
 test("has lower bound", () => {
   const { container } = render(
@@ -45,7 +46,7 @@ test("onChange returns single values", async () => {
   ]);
 
   expect(onChange).toHaveBeenCalledTimes(2);
-  expect(onChange.mock.calls[onChange.mock.calls.length - 1][0]).toEqual("bar");
+  expect(onChange.mock.calls[onChange.mock.calls.length - 1][0]).toBe("bar");
 });
 
 test("onChange returns multiple values", async () => {
@@ -75,5 +76,5 @@ test("onChange returns multiple values", async () => {
   ]);
 
   expect(onChange).toHaveBeenCalledTimes(3);
-  expect(onChange.mock.calls[onChange.mock.calls.length - 1][0]).toEqual("foo,bar");
+  expect(onChange.mock.calls[onChange.mock.calls.length - 1][0]).toBe("foo,bar");
 });
