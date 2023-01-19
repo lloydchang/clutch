@@ -188,7 +188,7 @@ export interface SelectProps extends Pick<MuiSelectProps, "disabled" | "error" |
   label?: string;
   name: string;
   options: SelectOption[];
-  onChange?: (value: string | string[]) => void;
+  onChange?: (value: string) => void;
 }
 
 export const Select = ({
@@ -235,13 +235,7 @@ export const Select = ({
 
   React.useEffect(() => {
     if (selectedIdxs.length !== 0 && flatOptions.length !== 0) {
-      let onChangeValue;
-      if (multiple) {
-        onChangeValue = selectedValues() ?? [];
-      } else {
-        onChangeValue = selectedValues()[0] ?? "";
-      }
-      onChange && onChange(onChangeValue);
+      onChange && onChange((selectedValues() ?? []).join(","));
     }
   }, [selectedIdxs]);
 
