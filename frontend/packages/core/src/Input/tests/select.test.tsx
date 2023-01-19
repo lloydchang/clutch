@@ -76,5 +76,5 @@ test("onChange returns multiple values", async () => {
   ]);
 
   expect(onChange).toHaveBeenCalledTimes(3);
-  expect(onChange.mock.calls[onChange.mock.calls.length - 1][0]).toBe("foo,bar");
+  expect(onChange.mock.calls[onChange.mock.calls.length - 1][0]).toBe(["foo", "bar"]);
 });

@@ -188,7 +188,7 @@ export interface SelectProps extends Pick<MuiSelectProps, "disabled" | "error" |
   label?: string;
   name: string;
   options: SelectOption[];
-  onChange?: (value: string) => void;
+  onChange?: (value: string | string[]) => void;
 }
 
 export const Select = ({
@@ -210,7 +210,7 @@ export const Select = ({
   );
 
   // Will take a string or an integer and attempt to find the index where it exists based on the flattened items
-  const calculateDefaultOption = () => {
+  const calculateDefaultOptions = () => {
     let option = defaultOption;
 
     // handle empty case
@@ -228,14 +228,20 @@ export const Select = ({
     return index >= 0 ? [index] : [0];
   };
 
-  const [selectedIdxs, setSelectedIdxs] = React.useState(calculateDefaultOption());
+  const [selectedIdxs, setSelectedIdxs] = React.useState(calculateDefaultOptions());
 
   const selectedValues = () =>
     selectedIdxs.map(idx => flatOptions[idx].value || flatOptions[idx].label);
 
   React.useEffect(() => {
     if (selectedIdxs.length !== 0 && flatOptions.length !== 0) {
-      onChange && onChange((selectedValues() ?? []).join(","));
+      let onChangeValue;
+      if (multiple) {
+        onChangeValue = selectedValues() ?? [];
+      } else {
+        onChangeValue = selectedValues()[0] ?? "";
+      }
+      onChange && onChange(onChangeValue);
     }
   }, [selectedIdxs]);
 
